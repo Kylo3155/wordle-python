@@ -44,15 +44,18 @@ def guessWord(turn, correct):
     print(f'Turn number {turn}')
     guesses = ['_' * 5] * 6
 
+    refresh_page(headline=f"Guess {0 + 1}")
+    showGuesses(guesses, correct)
+
     for i in range(6):
-        refresh_page(headline=f"Guess {i + 1}")
-        showGuesses(guesses, correct)
         guess = input('\nEnter your guess: ').upper()
         while len(guess) != 5:
             guess = input('Please enter a 5-letter word: ').upper()
         guesses[i] = guess
         if guesses[i] == correct:
             break
+        refresh_page(headline=f"Guess {i + 1}")
+        showGuesses(guesses, correct)
 
     result(correct, guesses)
 
