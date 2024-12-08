@@ -53,6 +53,8 @@ def guessWord(turn, correct):
             guess = input('Please enter a 5-letter word: ').upper()
         guesses[i] = guess
         if guesses[i] == correct:
+            refresh_page(headline=f"Guess {i + 1}")
+            showGuesses(guesses, correct)
             break
         refresh_page(headline=f"Guess {i + 1}")
         showGuesses(guesses, correct)
