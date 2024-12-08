@@ -3,6 +3,8 @@ import pathlib
 from rich import print
 from rich.console import Console
 from rich.theme import Theme
+from string import ascii_letters
+from string import ascii_uppercase
 
 console = Console(width=40, theme=Theme({"warning": "red on yellow"}))
 
@@ -15,6 +17,7 @@ def chooseWord():
     return random.choice(words)
 
 def showGuesses(guesses, word):
+    letter_status = {letter: letter for letter in ascii_uppercase}
     for guess in guesses:
         styledGuess = []
         for letter, correct in zip(guess, word):
@@ -22,10 +25,15 @@ def showGuesses(guesses, word):
                 style = 'bold white on green'
             elif letter in word:
                 style = 'bold white on yellow'
+            elif letter in ascii_letters:
+                style = 'bold white on #666666'
             else:
                 style = 'dim'
             styledGuess.append(f'[{style}]{letter}[/]')
+            if letter != "_":
+                letter_status[letter] = f"[{style}]{letter}[/]"
         console.print(''.join(styledGuess), justify='center')
+    console.print("\n" + "".join(letter_status.values()), justify="center")
 
 def refresh_page(headline):
     console.clear()
